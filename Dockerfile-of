@@ -1,0 +1,12 @@
+FROM python:2.7
+
+RUN apt-get update && apt-get install -y build-essential python-pastescript
+RUN easy_install -U PasteScript
+RUN pip install isodate
+
+ADD ./openfisca/ /app
+WORKDIR /app
+
+RUN pip install -r requirements.txt
+
+ENTRYPOINT paster serve api_config.ini
